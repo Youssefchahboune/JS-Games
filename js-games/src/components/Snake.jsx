@@ -4,15 +4,15 @@ import { useState, useEffect} from 'react'
     
 
 function Snake() {
-    const rows = 20;
-    const cols = 25;
-    let head = [4,4] 
+    const rows = 12;
+    const cols = 14;
+    let head = [4,3] 
     const[map,setMap] = useState(new Array(rows).fill().map(() => new Array(cols).fill(-1)));
     const[headCurrentPosition, setheadCurrentPosition] = useState(head);
     const[mapCreated,setMapCreated] = useState(false);
     const[headfacing,setHeadFacing] = useState();
     let pushIntervalId;
-    let MAX_NUMBER_OF_APPLES = 30;
+    let MAX_NUMBER_OF_APPLES = 5;
     const[score,setScore] = useState(0);
     let snake = [];
     
@@ -26,7 +26,7 @@ function Snake() {
     
     useEffect(() =>{
         if(mapCreated == false){
-            snake = [head,[4,3],[4,2]]
+            snake = [head,[4,2]]
             
             // set up the snake position the 2d array map with a 0 as their label
             let newMap = [...map];
@@ -245,15 +245,17 @@ function Snake() {
 
     return (
         <>
-            <div className='flex justify-center py-10'>
+            <div className='flex justify-center pt-[108px] pr-[6px]'>
                 <div>
-                    <div className='flex bg-black justify-between px-5 py-5 border-4 border-[#51ff00]'>
-                        <div className='text-[#51ff00] font-bold'>Snake Game</div>
-                        <div className='text-[red] font-bold'>Score : {score}</div>
+
+                    <div>
+                        <div className='text-[rgba(255,255,255,0.8)] text-[15px] font-bold italic absolute pl-[20px] pt-[15px]'>Score : {score}</div>
                     </div>
+
                     
-                    <div className='border-4 border-[#51ff00] shadow-2xl'>
-                        <div className='flex flex-wrap w-[500px]'>
+                    
+                    <div className='border-4 border-[#000000] shadow-2xl'>
+                        <div className='flex flex-wrap w-[280px]'>
 
                             {
                                 mapCreated ?
@@ -264,7 +266,7 @@ function Snake() {
                                         <div className='w-5 h-5 bg-[#51ff00]'></div>
                                     </div> 
                                     : cell == 1? <div className='w-5 h-5 bg-black flex justify-center items-center' >
-                                        <div className='w-3 h-3 bg-[red] rounded-full'></div>
+                                        <div className='w-3 h-3 bg-[red] '></div>
                                     </div> : <div></div>
                                 )) : <div></div>
                             }
