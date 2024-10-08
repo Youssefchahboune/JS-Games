@@ -12,7 +12,7 @@ function Snake() {
     const[mapCreated,setMapCreated] = useState(false);
     const[headfacing,setHeadFacing] = useState();
     let pushIntervalId;
-    let MAX_NUMBER_OF_APPLES = 10;
+    let MAX_NUMBER_OF_APPLES = 30;
     const[score,setScore] = useState(0);
     let snake = [];
     
@@ -41,9 +41,6 @@ function Snake() {
             for(let i = 0; i < snake.length; i++){
                 newMap[snake[i][0]][snake[i][1]] = 0;
             }
-
-            console.log(snake);
-
             setMap(newMap);
             setMapCreated(true);
         }
@@ -87,7 +84,7 @@ function Snake() {
                         lastposition = currentLastPosition;
                     }
                 }
-                console.log(snake);
+                
                 updateSnakeOnMap(snake);
             } 
             else if(facing == "UP"){
@@ -115,7 +112,7 @@ function Snake() {
                         lastposition = currentLastPosition;
                     }
                 }
-                console.log(snake);
+               
                 updateSnakeOnMap(snake);
             } 
             else if(facing == "DOWN"){
@@ -143,7 +140,7 @@ function Snake() {
                         lastposition = currentLastPosition;
                     }
                 }
-                console.log(snake);
+                
                 updateSnakeOnMap(snake);
             }  
             else if(facing == "LEFT"){
@@ -173,7 +170,7 @@ function Snake() {
                 }
                 updateSnakeOnMap(snake);
             }
-        },100);
+        },110);
     }
     
     let updatHeadFacing = (facing) => {
@@ -182,7 +179,7 @@ function Snake() {
     
     useEffect(() => {
         const move = (event) => {
-        console.log(`Key pressed: ${event.key}`);
+        //console.log(`Key pressed: ${event.key}`);
             
             if(event.key == "ArrowRight"){
                 //ateApple("RIGHT",snake[0])
@@ -212,25 +209,25 @@ function Snake() {
     let ateApple = (facing,currentHeadPosition) => {
         // based on which way we are facing we need to check if the next cell has a 1  (1 = apple)
         if(facing == "RIGHT"){
-            console.log(map[currentHeadPosition[0]][currentHeadPosition[1]+1])
+            //console.log(map[currentHeadPosition[0]][currentHeadPosition[1]+1])
             if(map[currentHeadPosition[0]][currentHeadPosition[1]+1] == 1){
                 updateScore();
             }
         }
         else if (facing == "LEFT") {
-            console.log(map[currentHeadPosition[0]][currentHeadPosition[1]-1])
+            //console.log(map[currentHeadPosition[0]][currentHeadPosition[1]-1])
             if(map[currentHeadPosition[0]][currentHeadPosition[1]-1] == 1){
                 updateScore();
             }
         } 
         else if (facing == "UP") {
-            console.log(map[currentHeadPosition[0]-1][currentHeadPosition[1]])
+            //console.log(map[currentHeadPosition[0]-1][currentHeadPosition[1]])
             if(map[currentHeadPosition[0]-1][currentHeadPosition[1]] == 1){
                 updateScore();
             }
         } 
         else if (facing == "DOWN") {
-            console.log(map[currentHeadPosition[0]+1][currentHeadPosition[1]])
+            //console.log(map[currentHeadPosition[0]+1][currentHeadPosition[1]])
             if(map[currentHeadPosition[0]+1][currentHeadPosition[1]] == 1){
                 updateScore();
             }
@@ -239,10 +236,10 @@ function Snake() {
 
     let updateScore = () => {
         setScore(prevScore => prevScore + 1);
-        // let newSnake = [...snake]
-        // let lastposition = newSnake[newSnake.length-1];
-        // newSnake[newSnake.length] = [lastposition[0]][lastposition[1]-1];
-        // updateSnakeOnMap(newSnake);
+        let lastposition = [...snake[snake.length-1]];
+        let grow = [lastposition[0],lastposition[1]-1];
+        snake = [...snake,grow]
+        updateSnakeOnMap(snake);
     }
     
 
