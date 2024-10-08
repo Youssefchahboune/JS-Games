@@ -12,7 +12,7 @@ function Snake() {
     const[mapCreated,setMapCreated] = useState(false);
     const[headfacing,setHeadFacing] = useState();
     let pushIntervalId;
-    let MAX_NUMBER_OF_APPLES = 5;
+    let MAX_NUMBER_OF_APPLES = 3;
     const[score,setScore] = useState(0);
     let snake = [];
     
@@ -235,7 +235,7 @@ function Snake() {
     }
 
     let updateScore = () => {
-        setScore(prevScore => prevScore + 1);
+        setScore(prevScore => prevScore + 100);
         let lastposition = [...snake[snake.length-1]];
         let grow = [lastposition[0],lastposition[1]-1];
         snake = [...snake,grow]
