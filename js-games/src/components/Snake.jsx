@@ -76,121 +76,163 @@ function Snake() {
         setMap(newMap);
     }
 
+    let bounderiesCollision = (facing,snakeHeadPosition) => {
+        if(facing == "RIGHT"){
+            if(snakeHeadPosition[1]+1 == cols){
+                clearInterval(pushIntervalId);
+                SNAKE_SPEED = 0;
+                return true;
+            }
+        } else if(facing == "LEFT") {
+            if(snakeHeadPosition[1]-1 == -1){
+                clearInterval(pushIntervalId);
+                SNAKE_SPEED = 0;
+                return true;
+            }
+        } else if(facing == "UP") {
+            if(snakeHeadPosition[0]-1 == -1){
+                clearInterval(pushIntervalId);
+                SNAKE_SPEED = 0;
+                return true;
+            }
+            
+        } else if(facing == "DOWN") {
+            if(snakeHeadPosition[0]+1 == rows){
+                clearInterval(pushIntervalId);
+                SNAKE_SPEED = 0;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     let push = (facing) => {
         clearInterval(pushIntervalId);
         pushIntervalId = setInterval(()=>{
             if(facing == "RIGHT"){
-                headColision("RIGHT",snake[0]);
-                let lastposition;
-                let currentLastPosition;
-                for(let i = 0; i<snake.length; i++){
-                    
-                    if(i == 0){
-                        // making a deep copy of the last position
-                        lastposition = [...snake[i]];
-                        snake[i][1] = snake[i][1]+1
-                        console.log(snake[i]);
-                    } 
-                    else if(i == snake.length -1 ) {
-                        currentLastPosition = snake[i]
-                        snake[i] = lastposition;
-                        lastposition = currentLastPosition;
-                        let newmap = [...map];
-                        newmap[currentLastPosition[0]][currentLastPosition[1]] = -1
-                        setMap(newmap);
+                if(!bounderiesCollision(facing,snake[0])){
+                    headColision(facing,snake[0]);
+                    let lastposition;
+                    let currentLastPosition;
+                    for(let i = 0; i<snake.length; i++){
+                        
+                        if(i == 0){
+                            // making a deep copy of the last position
+                            lastposition = [...snake[i]];
+                            snake[i][1] = snake[i][1]+1
+                            //console.log(snake[i]);
+                        } 
+                        else if(i == snake.length -1 ) {
+                            currentLastPosition = snake[i]
+                            snake[i] = lastposition;
+                            lastposition = currentLastPosition;
+                            let newmap = [...map];
+                            newmap[currentLastPosition[0]][currentLastPosition[1]] = -1
+                            setMap(newmap);
+                        }
+                        else {
+                            currentLastPosition = snake[i]
+                            snake[i] = lastposition;
+                            lastposition = currentLastPosition;
+                        }
                     }
-                    else {
-                        currentLastPosition = snake[i]
-                        snake[i] = lastposition;
-                        lastposition = currentLastPosition;
-                    }
+                    headfacing = facing;
+                    updateSnakeOnMap(snake);
                 }
-                headfacing = facing;
-                updateSnakeOnMap(snake);
             } 
             else if(facing == "UP"){
-                headColision("UP",snake[0]);
-                let lastposition;
-                let currentLastPosition;
-                for(let i = 0; i<snake.length; i++){
-                    
-                    if(i == 0){
-                        // making a deep copy of the last position
-                        lastposition = [...snake[i]];
-                        snake[i][0] = snake[i][0]-1  
-                    } 
-                    else if(i == snake.length -1 ) {
-                        currentLastPosition = snake[i]
-                        snake[i] = lastposition;
-                        lastposition = currentLastPosition;
-                        let newmap = [...map];
-                        newmap[currentLastPosition[0]][currentLastPosition[1]] = -1
-                        setMap(newmap);
+                if(!bounderiesCollision(facing,snake[0])){
+                    headColision("UP",snake[0]);
+                    let lastposition;
+                    let currentLastPosition;
+                    for(let i = 0; i<snake.length; i++){
+                        
+                        if(i == 0){
+                            // making a deep copy of the last position
+                            lastposition = [...snake[i]];
+                            snake[i][0] = snake[i][0]-1
+                            //console.log(snake[i]);
+                        } 
+                        else if(i == snake.length -1 ) {
+                            currentLastPosition = snake[i]
+                            snake[i] = lastposition;
+                            lastposition = currentLastPosition;
+                            let newmap = [...map];
+                            newmap[currentLastPosition[0]][currentLastPosition[1]] = -1
+                            setMap(newmap);
+                        }
+                        else {
+                            currentLastPosition = snake[i]
+                            snake[i] = lastposition;
+                            lastposition = currentLastPosition;
+                        }
                     }
-                    else {
-                        currentLastPosition = snake[i]
-                        snake[i] = lastposition;
-                        lastposition = currentLastPosition;
-                    }
+                    headfacing = facing;
+                    updateSnakeOnMap(snake);
                 }
-                headfacing = facing;
-                updateSnakeOnMap(snake);
             } 
             else if(facing == "DOWN"){
-                headColision("DOWN",snake[0]);
-                let lastposition;
-                let currentLastPosition;
-                for(let i = 0; i<snake.length; i++){
-                    
-                    if(i == 0){
-                        // making a deep copy of the last position
-                        lastposition = [...snake[i]];
-                        snake[i][0] = snake[i][0]+1  
-                    } 
-                    else if(i == snake.length -1 ) {
-                        currentLastPosition = snake[i]
-                        snake[i] = lastposition;
-                        lastposition = currentLastPosition;
-                        let newmap = [...map];
-                        newmap[currentLastPosition[0]][currentLastPosition[1]] = -1
-                        setMap(newmap);
+                if(!bounderiesCollision(facing,snake[0])){
+                    headColision("DOWN",snake[0]);
+                    let lastposition;
+                    let currentLastPosition;
+                    for(let i = 0; i<snake.length; i++){
+                        
+                        if(i == 0){
+                            // making a deep copy of the last position
+                            lastposition = [...snake[i]];
+                            snake[i][0] = snake[i][0]+1
+                            //console.log(snake[i]);
+                        } 
+                        else if(i == snake.length -1 ) {
+                            currentLastPosition = snake[i]
+                            snake[i] = lastposition;
+                            lastposition = currentLastPosition;
+                            let newmap = [...map];
+                            newmap[currentLastPosition[0]][currentLastPosition[1]] = -1
+                            setMap(newmap);
+                        }
+                        else {
+                            currentLastPosition = snake[i]
+                            snake[i] = lastposition;
+                            lastposition = currentLastPosition;
+                        }
                     }
-                    else {
-                        currentLastPosition = snake[i]
-                        snake[i] = lastposition;
-                        lastposition = currentLastPosition;
-                    }
+                    headfacing = facing;
+                    updateSnakeOnMap(snake);
                 }
-                headfacing = facing;
-                updateSnakeOnMap(snake);
             }  
             else if(facing == "LEFT"){
-                headColision("LEFT",snake[0]);
-                let lastposition;
-                let currentLastPosition;
-                for(let i = 0; i<snake.length; i++){
-                    
-                    if(i == 0){
-                        // making a deep copy of the last position
-                        lastposition = [...snake[i]];
-                        snake[i][1] = snake[i][1]-1  
-                    } 
-                    else if(i == snake.length -1 ) {
-                        currentLastPosition = snake[i]
-                        snake[i] = lastposition;
-                        lastposition = currentLastPosition;
-                        let newmap = [...map];
-                        newmap[currentLastPosition[0]][currentLastPosition[1]] = -1
-                        setMap(newmap);
+                if(!bounderiesCollision(facing,snake[0])){
+                    headColision("LEFT",snake[0]);
+                    let lastposition;
+                    let currentLastPosition;
+                    for(let i = 0; i<snake.length; i++){
+                        
+                        if(i == 0){
+                            // making a deep copy of the last position
+                            lastposition = [...snake[i]];
+                            snake[i][1] = snake[i][1]-1
+                            //console.log(snake[i]);
+                        } 
+                        else if(i == snake.length -1 ) {
+                            currentLastPosition = snake[i]
+                            snake[i] = lastposition;
+                            lastposition = currentLastPosition;
+                            let newmap = [...map];
+                            newmap[currentLastPosition[0]][currentLastPosition[1]] = -1
+                            setMap(newmap);
+                        }
+                        else {
+                            currentLastPosition = snake[i]
+                            snake[i] = lastposition;
+                            lastposition = currentLastPosition;
+                        }
                     }
-                    else {
-                        currentLastPosition = snake[i]
-                        snake[i] = lastposition;
-                        lastposition = currentLastPosition;
-                    }
+                    headfacing = facing
+                    updateSnakeOnMap(snake);
                 }
-                headfacing = facing
-                updateSnakeOnMap(snake);
             }
         },SNAKE_SPEED);
     }
@@ -209,16 +251,12 @@ function Snake() {
             if(SNAKE_SPEED != 0){
                 
                 if(event.key == "ArrowRight"&& headfacing != "RIGHT" && headfacing != "LEFT"){
-                    //ateApple("RIGHT",snake[0])
                     push("RIGHT"); 
                 } else if (event.key == "ArrowLeft" && headfacing != "LEFT" && headfacing != "RIGHT") {
-                    //ateApple("LEFT",snake[0]);
                     push("LEFT");
                 } else if (event.key == "ArrowUp" && headfacing != "UP" && headfacing != "DOWN") {
-                    //ateApple("UP",snake[0]);
                     push("UP");
                 } else if (event.key == "ArrowDown" && headfacing != "DOWN" && headfacing != "UP") {
-                    //ateApple("DOWN",snake[0]);
                     push("DOWN");
                 }
             }

@@ -5,6 +5,7 @@ import Snake from './components/Snake'
 function App() {
 
   const[arcadeMachinePicked,setArcadeMachinePicked] = useState(1);
+  const[arcadeMachinePower,setArcadeMachinePower] = useState(1)
 
   useEffect(() => {
     const selectArcadeMachine = (event) =>{
@@ -517,9 +518,22 @@ function App() {
   return (
     <div className="App">
       {/* <div className="pl-5 font-bold py-5 text-2xl bg-[#f7df1e]">JS<span className='text-sm italic'>.Games</span></div> */}
+      
       <div className='flex justify-center mt-[3%]'>
-        <div className='absolute'>{arcadeMachineSelected()}</div>
-        <Snake></Snake>
+        <div>
+          <div className='flex justify-center'>
+            <div className='absolute'>{arcadeMachineSelected()}</div>
+          </div>
+          <div className='w-96'>
+          <button onClick={()=>{arcadeMachinePower == 0? setArcadeMachinePower(1) : setArcadeMachinePower(0)}} className='absolute text-[white] font-bold italic border-[4px] border-[darkgray] bg-[red] w-12 h-12 rounded-full mt-[510px] ml-[20px] text-[8px] hover:scale-[1.05] duration-300 ease-in-out'>ON/OFF</button>
+          <button className='absolute text-[white] font-bold italic border-[4px] border-[darkgray] bg-[gray] w-14 h-9 rounded-full mt-[515px] ml-[75px] text-[11px] hover:scale-[1.05] duration-300 ease-in-out'>PLAY</button>
+          <button className='absolute text-[white] font-bold italic border-[4px] border-[darkgray] bg-[gray] w-14 h-9 rounded-full mt-[515px] ml-[140px] text-[11px] hover:scale-[1.05] duration-300 ease-in-out '>MENU</button>
+          </div>
+
+          { arcadeMachinePower == 0 ? 
+            <div className='ml-15 mt-20 w-[350px] h-[280px] bg-[black] text-white'></div>:<Snake></Snake>
+          }
+        </div>
       </div>
     </div>
   );
