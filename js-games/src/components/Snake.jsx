@@ -12,7 +12,7 @@ function Snake() {
     const[mapCreated,setMapCreated] = useState(false);
     const[headfacing,setHeadFacing] = useState();
     let pushIntervalId;
-    let MAX_NUMBER_OF_APPLES = 3;
+    let MAX_NUMBER_OF_APPLES = 1;
     const[score,setScore] = useState(0);
     let snake = [];
     
@@ -23,6 +23,15 @@ function Snake() {
         return [row,col];
     }
 
+    let spawnNewApple = () => {
+        let newMap = [...map];
+        let applePosition = generateApplePosition();
+        while(checkIfApplePositionisOnSnake(applePosition)){
+            applePosition = generateApplePosition();
+        }
+        newMap[applePosition[0]][applePosition[1]] = 1;
+        setMap(newMap);
+    }
     
     useEffect(() =>{
         if(mapCreated == false){
@@ -34,18 +43,30 @@ function Snake() {
             // set up the apples position and add them to the 2d array map with a 1 for their label
             for(let i = 0; i < MAX_NUMBER_OF_APPLES ; i++){
                 let applePosition = generateApplePosition();
+                while(checkIfApplePositionisOnSnake(applePosition)){
+                    applePosition = generateApplePosition();
+                }
                 newMap[applePosition[0]][applePosition[1]] = 1;
-                
             }
 
             for(let i = 0; i < snake.length; i++){
                 newMap[snake[i][0]][snake[i][1]] = 0;
             }
+
             setMap(newMap);
             setMapCreated(true);
         }
         //push("RIGHT");
     },[])
+
+    let checkIfApplePositionisOnSnake = (position) => {
+        for(let i = 0; i < snake.length; i++ ){
+            if(snake[i][0] == position[0] && snake[i][1] == position[1]){
+                return true;
+            }
+        }
+        return false;
+    }
 
     let updateSnakeOnMap = (snake) => {
         let newMap = [...map];
@@ -54,7 +75,6 @@ function Snake() {
         }
         setMap(newMap);
     }
-
 
     let push = (facing) => {
         clearInterval(pushIntervalId);
@@ -240,6 +260,7 @@ function Snake() {
         let grow = [lastposition[0],lastposition[1]-1];
         snake = [...snake,grow]
         updateSnakeOnMap(snake);
+        spawnNewApple();
     }
     
 
