@@ -10,12 +10,12 @@ function Snake() {
     const[map,setMap] = useState(new Array(rows).fill().map(() => new Array(cols).fill(-1)));
     const[headCurrentPosition, setheadCurrentPosition] = useState(head);
     const[mapCreated,setMapCreated] = useState(false);
-    //const[headfacing,setHeadFacing] = useState();
     let pushIntervalId;
     let MAX_NUMBER_OF_APPLES = 1;
     const[score,setScore] = useState(0);
     let snake = [];
     let headfacing;
+    let SNAKE_SPEED = 110;
     
     
     let generateApplePosition = () => {
@@ -56,7 +56,7 @@ function Snake() {
             setMap(newMap);
             setMapCreated(true);
         }
-        //push("RIGHT");
+        //push(getRandomDirection());
     },[])
 
     let checkIfApplePositionisOnSnake = (position) => {
@@ -80,7 +80,7 @@ function Snake() {
         clearInterval(pushIntervalId);
         pushIntervalId = setInterval(()=>{
             if(facing == "RIGHT"){
-                ateApple("RIGHT",snake[0]);
+                headColision("RIGHT",snake[0]);
                 let lastposition;
                 let currentLastPosition;
                 for(let i = 0; i<snake.length; i++){
@@ -88,7 +88,8 @@ function Snake() {
                     if(i == 0){
                         // making a deep copy of the last position
                         lastposition = [...snake[i]];
-                        snake[i][1] = snake[i][1]+1  
+                        snake[i][1] = snake[i][1]+1
+                        console.log(snake[i]);
                     } 
                     else if(i == snake.length -1 ) {
                         currentLastPosition = snake[i]
@@ -108,7 +109,7 @@ function Snake() {
                 updateSnakeOnMap(snake);
             } 
             else if(facing == "UP"){
-                ateApple("UP",snake[0]);
+                headColision("UP",snake[0]);
                 let lastposition;
                 let currentLastPosition;
                 for(let i = 0; i<snake.length; i++){
@@ -136,7 +137,7 @@ function Snake() {
                 updateSnakeOnMap(snake);
             } 
             else if(facing == "DOWN"){
-                ateApple("DOWN",snake[0]);
+                headColision("DOWN",snake[0]);
                 let lastposition;
                 let currentLastPosition;
                 for(let i = 0; i<snake.length; i++){
@@ -164,7 +165,7 @@ function Snake() {
                 updateSnakeOnMap(snake);
             }  
             else if(facing == "LEFT"){
-                ateApple("LEFT",snake[0]);
+                headColision("LEFT",snake[0]);
                 let lastposition;
                 let currentLastPosition;
                 for(let i = 0; i<snake.length; i++){
@@ -191,29 +192,35 @@ function Snake() {
                 headfacing = facing
                 updateSnakeOnMap(snake);
             }
-        },110);
+        },SNAKE_SPEED);
     }
-    
-    let updatHeadFacing = (facing) => {
-        //setHeadFacing(facing);
+
+    let getRandomDirection = () => {
+        let randomIndex = Math.floor(Math.random() * 5);
+        let arrayOfDirection = ["RIGHT","LEFT","UP","DOWN"];
+        return arrayOfDirection[randomIndex];
     }
     
     useEffect(() => {
         const move = (event) => {
-        //console.log(`Key pressed: ${event.key}`);
+        
+            //console.log(`Key pressed: ${event.key}`);
             
-            if(event.key == "ArrowRight"&& headfacing != "RIGHT" && headfacing != "LEFT"){
-                //ateApple("RIGHT",snake[0])
-                push("RIGHT"); 
-            } else if (event.key == "ArrowLeft" && headfacing != "LEFT" && headfacing != "RIGHT") {
-                //ateApple("LEFT",snake[0]);
-                push("LEFT");
-            } else if (event.key == "ArrowUp" && headfacing != "UP" && headfacing != "DOWN") {
-                //ateApple("UP",snake[0]);
-                push("UP");
-            } else if (event.key == "ArrowDown" && headfacing != "DOWN" && headfacing != "UP") {
-                //ateApple("DOWN",snake[0]);
-                push("DOWN");
+            if(SNAKE_SPEED != 0){
+                
+                if(event.key == "ArrowRight"&& headfacing != "RIGHT" && headfacing != "LEFT"){
+                    //ateApple("RIGHT",snake[0])
+                    push("RIGHT"); 
+                } else if (event.key == "ArrowLeft" && headfacing != "LEFT" && headfacing != "RIGHT") {
+                    //ateApple("LEFT",snake[0]);
+                    push("LEFT");
+                } else if (event.key == "ArrowUp" && headfacing != "UP" && headfacing != "DOWN") {
+                    //ateApple("UP",snake[0]);
+                    push("UP");
+                } else if (event.key == "ArrowDown" && headfacing != "DOWN" && headfacing != "UP") {
+                    //ateApple("DOWN",snake[0]);
+                    push("DOWN");
+                }
             }
             
         };
@@ -227,30 +234,41 @@ function Snake() {
         };
     }, []);
 
-    let ateApple = (facing,currentHeadPosition) => {
-        // based on which way we are facing we need to check if the next cell has a 1  (1 = apple)
+    let headColision = (facing,currentHeadPosition) => {
+        // based on which way we are facing we need to check if the next cell has a 1 or 0 (1 = apple) and (0 = body)
         if(facing == "RIGHT"){
-            //console.log(map[currentHeadPosition[0]][currentHeadPosition[1]+1])
+            // if the head hits an apple
             if(map[currentHeadPosition[0]][currentHeadPosition[1]+1] == 1){
                 updateScore();
+            } 
+            // if the head of the snake hits his own body
+            else if(map[currentHeadPosition[0]][currentHeadPosition[1]+1] == 0){
+                clearInterval(pushIntervalId);
+                SNAKE_SPEED = 0;
             }
         }
         else if (facing == "LEFT") {
-            //console.log(map[currentHeadPosition[0]][currentHeadPosition[1]-1])
             if(map[currentHeadPosition[0]][currentHeadPosition[1]-1] == 1){
                 updateScore();
+            } else if(map[currentHeadPosition[0]][currentHeadPosition[1]-1] == 0){
+                clearInterval(pushIntervalId);
+                SNAKE_SPEED = 0;
             }
         } 
         else if (facing == "UP") {
-            //console.log(map[currentHeadPosition[0]-1][currentHeadPosition[1]])
             if(map[currentHeadPosition[0]-1][currentHeadPosition[1]] == 1){
                 updateScore();
+            } else if(map[currentHeadPosition[0]-1][currentHeadPosition[1]] == 0){
+                clearInterval(pushIntervalId);
+                SNAKE_SPEED = 0;
             }
         } 
         else if (facing == "DOWN") {
-            //console.log(map[currentHeadPosition[0]+1][currentHeadPosition[1]])
             if(map[currentHeadPosition[0]+1][currentHeadPosition[1]] == 1){
                 updateScore();
+            } else if(map[currentHeadPosition[0]+1][currentHeadPosition[1]] == 0){
+                clearInterval(pushIntervalId);
+                SNAKE_SPEED = 0;
             }
         }
     }
@@ -263,7 +281,6 @@ function Snake() {
         updateSnakeOnMap(snake);
         spawnNewApple();
     }
-    
 
     return (
         <>
@@ -281,9 +298,9 @@ function Snake() {
 
                             {
                                 mapCreated ?
-                                map.map((row) => row.map((cell) => 
+                                map.map((row,r) => row.map((cell,c) => 
                                     cell == 
-                                    -1 ? <div className='w-5 h-5 bg-black border-[1px] border-[rgba(255,255,255,0.1)]'></div> 
+                                    -1 ? <div className='w-5 h-5 bg-black border-[1px] border-[rgba(255,255,255,0.1)] text-white text-[5px]'>{/*[{r}-{c}]*/}</div> 
                                     : cell == 0 ? <div className='w-5 h-5 bg-black flex justify-center items-center'>
                                         <div className='w-5 h-5 bg-[#51ff00]'></div>
                                     </div> 
