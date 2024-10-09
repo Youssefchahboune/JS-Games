@@ -10,11 +10,12 @@ function Snake() {
     const[map,setMap] = useState(new Array(rows).fill().map(() => new Array(cols).fill(-1)));
     const[headCurrentPosition, setheadCurrentPosition] = useState(head);
     const[mapCreated,setMapCreated] = useState(false);
-    const[headfacing,setHeadFacing] = useState();
+    //const[headfacing,setHeadFacing] = useState();
     let pushIntervalId;
     let MAX_NUMBER_OF_APPLES = 1;
     const[score,setScore] = useState(0);
     let snake = [];
+    let headfacing;
     
     
     let generateApplePosition = () => {
@@ -52,7 +53,6 @@ function Snake() {
             for(let i = 0; i < snake.length; i++){
                 newMap[snake[i][0]][snake[i][1]] = 0;
             }
-
             setMap(newMap);
             setMapCreated(true);
         }
@@ -104,7 +104,7 @@ function Snake() {
                         lastposition = currentLastPosition;
                     }
                 }
-                
+                headfacing = facing;
                 updateSnakeOnMap(snake);
             } 
             else if(facing == "UP"){
@@ -132,7 +132,7 @@ function Snake() {
                         lastposition = currentLastPosition;
                     }
                 }
-               
+                headfacing = facing;
                 updateSnakeOnMap(snake);
             } 
             else if(facing == "DOWN"){
@@ -160,7 +160,7 @@ function Snake() {
                         lastposition = currentLastPosition;
                     }
                 }
-                
+                headfacing = facing;
                 updateSnakeOnMap(snake);
             }  
             else if(facing == "LEFT"){
@@ -188,29 +188,30 @@ function Snake() {
                         lastposition = currentLastPosition;
                     }
                 }
+                headfacing = facing
                 updateSnakeOnMap(snake);
             }
         },110);
     }
     
     let updatHeadFacing = (facing) => {
-        setHeadFacing(facing);
+        //setHeadFacing(facing);
     }
     
     useEffect(() => {
         const move = (event) => {
         //console.log(`Key pressed: ${event.key}`);
             
-            if(event.key == "ArrowRight"){
+            if(event.key == "ArrowRight"&& headfacing != "RIGHT" && headfacing != "LEFT"){
                 //ateApple("RIGHT",snake[0])
                 push("RIGHT"); 
-            } else if (event.key == "ArrowLeft") {
+            } else if (event.key == "ArrowLeft" && headfacing != "LEFT" && headfacing != "RIGHT") {
                 //ateApple("LEFT",snake[0]);
                 push("LEFT");
-            } else if (event.key == "ArrowUp") {
+            } else if (event.key == "ArrowUp" && headfacing != "UP" && headfacing != "DOWN") {
                 //ateApple("UP",snake[0]);
                 push("UP");
-            } else if (event.key == "ArrowDown") {
+            } else if (event.key == "ArrowDown" && headfacing != "DOWN" && headfacing != "UP") {
                 //ateApple("DOWN",snake[0]);
                 push("DOWN");
             }
