@@ -8,6 +8,8 @@ function App() {
   const[arcadeMachinePower,setArcadeMachinePower] = useState(0);
   const[arcadeMachineState,setArcadeMachineState] = useState("MENU");
 
+  //let mainMusic = new Audio()
+
   useEffect(() => {
     const selectArcadeMachine = (event) =>{
       //console.log(`Key pressed: ${event.key}`);

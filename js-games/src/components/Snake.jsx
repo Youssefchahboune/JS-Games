@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { useState, useEffect} from 'react'
+import '../App.css';
 
     
 
@@ -56,7 +57,7 @@ function Snake() {
             setMap(newMap);
             setMapCreated(true);
         }
-        //push(getRandomDirection());
+        //push("RIGHT");
     },[])
 
     let checkIfApplePositionisOnSnake = (position) => {
@@ -331,19 +332,19 @@ function Snake() {
 
                     
                     
-                    <div className='border-4 border-[#000000] shadow-2xl'>
+                    <div className='bg-black border-4 border-[#000000] shadow-2xl'>
                         <div className='flex flex-wrap w-[280px]'>
 
                             {
                                 mapCreated ?
                                 map.map((row,r) => row.map((cell,c) => 
                                     cell == 
-                                    -1 ? <div className='w-5 h-5 bg-black border-[1px] border-[rgba(255,255,255,0.1)] text-white text-[5px]'>{/*[{r}-{c}]*/}</div> 
-                                    : cell == 0 ? <div className='w-5 h-5 bg-black flex justify-center items-center'>
-                                        <div className='w-5 h-5 bg-[#51ff00]'></div>
+                                    -1 ? <div className='w-5 h-5 bg-[rgba(0,0,0,0)] border-[1px] border-[rgba(255,255,255,0.01)] text-white text-[5px]'>{/*[{r}-{c}]*/}</div> 
+                                    : cell == 0 ? <div className='w-5 h-5 flex justify-center items-center'>
+                                        <div className='w-4 h-4 bg-[#51ff00] snake-shadow'></div>
                                     </div> 
-                                    : cell == 1? <div className='w-5 h-5 bg-black flex justify-center items-center' >
-                                        <div className='w-3 h-3 bg-[red] '></div>
+                                    : cell == 1? <div className='w-5 h-5 flex justify-center items-center' >
+                                        <div className='w-3 h-3 bg-[red] apple-shadow'></div>
                                     </div> : <div></div>
                                 )) : <div></div>
                             }
