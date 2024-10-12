@@ -341,10 +341,10 @@ function Snake() {
                                     cell == 
                                     -1 ? <div className='w-5 h-5 bg-[rgba(0,0,0,0)] border-[1px] border-[rgba(255,255,255,0.01)] text-white text-[5px]'>{/*[{r}-{c}]*/}</div> 
                                     : cell == 0 ? <div className='w-5 h-5 flex justify-center items-center'>
-                                        <div className='w-4 h-4 bg-[#51ff00] snake-shadow'></div>
+                                        <div className='w-4 h-4 bg-[#c5ffaa] snake-shadow'></div>
                                     </div> 
                                     : cell == 1? <div className='w-5 h-5 flex justify-center items-center' >
-                                        <div className='w-3 h-3 bg-[red] apple-shadow'></div>
+                                        <div className='w-3 h-3 bg-[#ff7878] apple-shadow'></div>
                                     </div> : <div></div>
                                 )) : <div></div>
                             }
