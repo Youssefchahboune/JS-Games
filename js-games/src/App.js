@@ -9,6 +9,7 @@ function App() {
   const[arcadeMachinePower,setArcadeMachinePower] = useState(0);
   const[arcadeMachineState,setArcadeMachineState] = useState("MENU");
   const[currentPoster,setCurrentPoster] = useState(0);
+  const[grayScaleFilterActive,setGrayScaleFilterActive] = useState("OFF");
 
   //let mainMusic = new Audio()
 
@@ -688,16 +689,42 @@ function App() {
     )
   }
 
+  let grayScaleFilter = () => {
+    if(grayScaleFilterActive === "ON"){
+      setGrayScaleFilterActive("OFF");
+    } else {
+      setGrayScaleFilterActive("ON");
+    }
+  }
+
   return (
-    <div className="App">
+    <div className={grayScaleFilterActive == "ON"? 'background grayscaleFilter' : 'background '}>
       {/* <div className="pl-5 font-bold py-5 text-2xl bg-[#f7df1e]">JS<span className='text-sm italic'>.Games</span></div> */}
       
-      <div className='flex justify-center pt-[3%]'>
+      <div className='flex justify-center pt-[3%] backdrop-saturate-50 h-[100vh]'>
         <div>
           <div className='flex justify-center'>
             <div className='absolute'>{arcadeMachineSelected()}</div>
           </div>
           <div className='w-96'>
+
+            {/* Toggle button */}
+          <div className='absolute text-[black] text-[10px] border-[3px] border-[lightgray] bg-[lightgray] w-14 h-7 rounded-full mt-[23px] ml-[300px]'>
+            
+            <div onClick={() => {grayScaleFilter()}} 
+            className={
+              grayScaleFilterActive == "ON" ? 'absolute z-10 w-5 h-5 mt-[1.5px] ml-[28px] bg-white rounded-full cursor-pointer duration-300 ease-in-out' 
+              : 'absolute z-10 w-5 h-5 mt-[1.5px] ml-[2px] bg-white rounded-full cursor-pointer duration-300 ease-in-out'} 
+            >
+            </div>
+            
+            <div className='flex justify-between px-[5px] relative mt-1 z-0'>
+              <div>ON</div>
+              <div>OFF</div>
+            </div>
+            
+          </div>
+
           <button onClick={()=>{arcadeMachinePower == 0? setArcadeMachinePower(1) : setArcadeMachinePower(0); setArcadeMachineState("MENU"); setCurrentPoster(0)}} className='absolute text-[white] font-bold italic border-[4px] border-[darkgray] bg-[red] w-12 h-12 rounded-full mt-[510px] ml-[20px] text-[8px] hover:scale-[1.05] duration-300 ease-in-out'>ON/OFF</button>
           <button onClick={()=>{setArcadeMachineState("SNAKE")}} className='absolute text-[white] font-bold italic border-[4px] border-[darkgray] bg-[gray] w-14 h-9 rounded-full mt-[515px] ml-[75px] text-[11px] hover:scale-[1.05] duration-300 ease-in-out'>PLAY</button>
           <button onClick={()=>{setArcadeMachineState("MENU")}} className='absolute text-[white] font-bold italic border-[4px] border-[darkgray] bg-[gray] w-14 h-9 rounded-full mt-[515px] ml-[140px] text-[11px] hover:scale-[1.05] duration-300 ease-in-out '>MENU</button>
@@ -711,6 +738,7 @@ function App() {
           }
         </div>
       </div>
+
     </div>
   );
 }

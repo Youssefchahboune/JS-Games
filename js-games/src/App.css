@@ -2,22 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+.background {
     background-image: url("../public/images/wallpaper_1.jpg");
     background-size:cover;
     background-repeat: no-repeat;
-    /* black and white vibes*/
-     backdrop-filter: grayscale(1%) blur(3px); 
-    filter: grayscale(100%);
-
-    /* invert vibes */
-    /* backdrop-filter: sepia();
-    filter: invert(); */
-
-    /* backdrop-filter: blur(0px); */
-    
-    
     height: 100vh;
+}
+
+.grayscaleFilter {
+
+    backdrop-filter: grayscale(1%) blur(3px); 
+    filter: grayscale(100%);
 }
 
 .snake-shadow{
