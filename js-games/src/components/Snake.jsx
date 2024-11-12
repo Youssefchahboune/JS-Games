@@ -364,18 +364,18 @@ function Snake() {
             <div className='absolute w-32 h-32 bg-[rgba(0,0,0,0.5)] rounded-full  ml-[215px] mt-[360px] xsm:flex justify-center items-center sm:invisible'>
                 <div>
                     <div className='flex justify-center'>
-                        <button onClick={() => {}} className='w-8 h-8 bg-white rounded-full hover:scale-[1.1] duration-200 ease-in-out'></button>
+                        <button className='w-8 h-8 bg-white rounded-full opacity-50 hover:scale-[1.2] hover:opacity-100 duration-200 ease-in-out'></button>
                     </div>
                     <div className='flex gap-8 mt-1'>
                         <div>
-                            <button onClick={() => {}} className='w-8 h-8 bg-white rounded-full hover:scale-[1.1] duration-200 ease-in-out'></button>
+                            <button className='w-8 h-8 bg-white rounded-full opacity-50 hover:scale-[1.2] hover:opacity-100 duration-200 ease-in-out'></button>
                         </div>
                         <div>
-                            <button onClick={() => {}} className='w-8 h-8 bg-white rounded-full hover:scale-[1.1] duration-200 ease-in-out'></button>
+                            <button className='w-8 h-8 bg-white rounded-full opacity-50 hover:scale-[1.2] hover:opacity-100 duration-200 ease-in-out'></button>
                         </div>
                     </div>
                     <div className='flex justify-center'>
-                        <button onClick={() => {}} className='w-8 h-8 bg-white rounded-full hover:scale-[1.1] duration-200 ease-in-out'></button>
+                        <button className='w-8 h-8 bg-white rounded-full opacity-50 hover:scale-[1.2] hover:opacity-100 duration-200 ease-in-out'></button>
                     </div>
                 </div>
             </div>
