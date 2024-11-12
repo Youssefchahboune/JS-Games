@@ -17,24 +17,7 @@ function Snake() {
     let snake = [];
     let headfacing;
     let SNAKE_SPEED = 110;
-    
-    
-    let generateApplePosition = () => {
-        let row = Math.floor(Math.random() * (rows));
-        let col = Math.floor(Math.random() * (cols));
-        return [row,col];
-    }
 
-    let spawnNewApple = () => {
-        let newMap = [...map];
-        let applePosition = generateApplePosition();
-        while(checkIfApplePositionisOnSnake(applePosition)){
-            applePosition = generateApplePosition();
-        }
-        newMap[applePosition[0]][applePosition[1]] = 1;
-        setMap(newMap);
-    }
-    
     useEffect(() =>{
         if(mapCreated == false){
             snake = [head,[4,2]]
@@ -59,6 +42,23 @@ function Snake() {
         }
         //push("RIGHT");
     },[])
+    
+    
+    let generateApplePosition = () => {
+        let row = Math.floor(Math.random() * (rows));
+        let col = Math.floor(Math.random() * (cols));
+        return [row,col];
+    }
+
+    let spawnNewApple = () => {
+        let newMap = [...map];
+        let applePosition = generateApplePosition();
+        while(checkIfApplePositionisOnSnake(applePosition)){
+            applePosition = generateApplePosition();
+        }
+        newMap[applePosition[0]][applePosition[1]] = 1;
+        setMap(newMap);
+    }
 
     let checkIfApplePositionisOnSnake = (position) => {
         for(let i = 0; i < snake.length; i++ ){
@@ -321,8 +321,66 @@ function Snake() {
         spawnNewApple();
     }
 
+    // let pressUP = () => {
+    //     if(SNAKE_SPEED != 0){
+                
+    //         if (headfacing != "UP" && headfacing != "DOWN") {
+    //             push("UP");
+    //         }
+    //     }
+    // }
+
+    // let pressDown = () => {
+    //     if(SNAKE_SPEED != 0){
+                
+    //         if (headfacing != "DOWN" && headfacing != "UP") {
+    //             push("DOWN");
+    //         }
+    //     }
+    // }
+
+    // let pressleft = () => {
+    //     if(SNAKE_SPEED != 0){
+                
+    //         if (headfacing != "LEFT" && headfacing != "RIGHT") {
+    //             push("LEFT");
+    //         }
+    //     }
+    // }
+
+    // let pressRight = () => {
+    //     if(SNAKE_SPEED != 0){  
+    //         if(headfacing != "RIGHT" && headfacing != "LEFT"){
+    //             push("RIGHT"); 
+    //         }
+    //     }
+    // }
+
+
     return (
         <>
+
+            {/* controller for mobile */}
+            <div className='absolute w-32 h-32 bg-[rgba(0,0,0,0.5)] rounded-full  ml-[215px] mt-[360px] xsm:flex justify-center items-center sm:invisible'>
+                <div>
+                    <div className='flex justify-center'>
+                        <button onClick={() => {}} className='w-8 h-8 bg-white rounded-full hover:scale-[1.1] duration-200 ease-in-out'></button>
+                    </div>
+                    <div className='flex gap-8 mt-1'>
+                        <div>
+                            <button onClick={() => {}} className='w-8 h-8 bg-white rounded-full hover:scale-[1.1] duration-200 ease-in-out'></button>
+                        </div>
+                        <div>
+                            <button onClick={() => {}} className='w-8 h-8 bg-white rounded-full hover:scale-[1.1] duration-200 ease-in-out'></button>
+                        </div>
+                    </div>
+                    <div className='flex justify-center'>
+                        <button onClick={() => {}} className='w-8 h-8 bg-white rounded-full hover:scale-[1.1] duration-200 ease-in-out'></button>
+                    </div>
+                </div>
+            </div>
+            
+
             <div className='flex justify-center pt-[108px] pr-[6px]'>
                 <div>
 
