@@ -707,7 +707,6 @@ function App() {
 
   return (
     <div className={grayScaleFilterActive == "ON"? 'background grayscaleFilter' : 'background '}>
-      {/* <div className="pl-5 font-bold py-5 text-2xl bg-[#f7df1e]">JS<span className='text-sm italic'>.Games</span></div> */}
       <div className='scale-[0.7] mph:scale-[0.8] lph:scale-[0.9] sm:scale-[1] xl:scale-[1.1]'>
         <div className='flex justify-center pt-[3%]'>
           <div className=''>
