@@ -612,6 +612,14 @@ function App() {
     )
   }
 
+  let generateMenuArrow = () => {
+    return (
+      <svg width="15" viewBox="0 0 19 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.8764 14.9329L0.828116 30.3668L0.363584 0.0594513L18.8764 14.9329Z" fill="#BEBEBE"/>
+      </svg>
+    );
+  }
+
   let SwipeRight = () =>{
     let xTranslatePosition = 0;
     let opacity = 100;
@@ -675,12 +683,12 @@ function App() {
       <div className='flex flex-col'>
         {/* <div className='pt-[50px] pl-[20px] font-black text-[#838383] pb-3 italic animate-pulse'>Menu</div>  */}
         
-        <div className='flex flex-row pl-[15px] pt-[75px]'>
-          <div className='mt-14 cursor-pointer absolute hover:scale-[1.5] duration-300 ease-in-out'>&lt;</div>
-          <div className='px-10'>
+        <div className='flex flex-row pl-[10px] pt-[75px] relative z-30'>
+          <div className='mt-14 rotate-180 cursor-pointer opacity-50 absolute hover:scale-[1.3] hover:opacity-85 duration-300 ease-in-out'>{generateMenuArrow()}</div>
+          <div className='px-10 pl-[50px]'>
             {generateCurrentPoster(currentPoster)}
           </div>
-          <div onClick={()=>{SwipeRight()}} className='mt-14 ml-[210px] cursor-pointer absolute hover:scale-[1.5] duration-300 ease-in-out'>&gt;</div>
+          <div onClick={()=>{SwipeRight()}} className='mt-14 ml-[210px] cursor-pointer absolute opacity-50 hover:scale-[1.3] hover:opacity-85 duration-300 ease-in-out'>{generateMenuArrow()}</div>
         </div>
         
       </div>
@@ -700,45 +708,48 @@ function App() {
   return (
     <div className={grayScaleFilterActive == "ON"? 'background grayscaleFilter' : 'background '}>
       {/* <div className="pl-5 font-bold py-5 text-2xl bg-[#f7df1e]">JS<span className='text-sm italic'>.Games</span></div> */}
-      
-      <div className='flex justify-center pt-[3%] backdrop-saturate-50 h-[100vh]'>
-        <div>
-          <div className='flex justify-center'>
-            <div className='absolute'>{arcadeMachineSelected()}</div>
-          </div>
-          <div className='w-96'>
-
-            {/* Toggle button */}
-          <div className='absolute text-[black] text-[10px] border-[3px] border-[lightgray] bg-[lightgray] w-14 h-7 rounded-full mt-[23px] ml-[300px]'>
-            
-            <div onClick={() => {grayScaleFilter()}} 
-            className={
-              grayScaleFilterActive == "ON" ? 'absolute z-10 w-5 h-5 mt-[1.5px] ml-[28px] bg-white rounded-full cursor-pointer duration-300 ease-in-out' 
-              : 'absolute z-10 w-5 h-5 mt-[1.5px] ml-[2px] bg-white rounded-full cursor-pointer duration-300 ease-in-out'} 
-            >
+      <div className='scale-[0.7] mph:scale-[0.8] lph:scale-[0.9] sm:scale-[1] xl:scale-[1.1]'>
+        <div className='flex justify-center pt-[3%]'>
+          <div className=''>
+            <div className='flex justify-center scale-100 z-10 relative'>
+              <div className='absolute'>{arcadeMachineSelected()}</div>
             </div>
             
-            <div className='flex justify-between px-[5px] relative mt-1 z-0'>
-              <div>ON</div>
-              <div>OFF</div>
+            <div className='w-96 scale-100 z-20 relative'>
+            
+              {/* Toggle button */}
+              <div className='absolute text-[black] text-[10px] border-[3px] border-[lightgray] bg-[lightgray] w-14 h-7 rounded-full mt-[23px] ml-[300px]'>
+                
+                <div onClick={() => {grayScaleFilter()}} 
+                  className={
+                    grayScaleFilterActive == "ON" ? 'absolute z-10 w-5 h-5 mt-[1.5px] ml-[28px] bg-white rounded-full cursor-pointer duration-300 ease-in-out' 
+                    : 'absolute z-10 w-5 h-5 mt-[1.5px] ml-[2px] bg-white rounded-full cursor-pointer duration-300 ease-in-out'} 
+                  >
+                </div>
+                
+                <div className='flex justify-between px-[5px] relative mt-1 z-0'>
+                  <div>ON</div>
+                  <div>OFF</div>
+                </div>
+                
+              </div>
+
+              <button onClick={()=>{arcadeMachinePower == 0? setArcadeMachinePower(1) : setArcadeMachinePower(0); setArcadeMachineState("MENU"); setCurrentPoster(0)}} className='absolute text-[white] font-bold italic border-[4px] border-[darkgray] bg-[red] w-12 h-12 rounded-full mt-[510px] ml-[20px] text-[8px] hover:scale-[1.05] duration-300 ease-in-out'>ON/OFF</button>
+              <button onClick={()=>{setArcadeMachineState("SNAKE")}} className='absolute text-[white] font-bold italic border-[4px] border-[darkgray] bg-[gray] w-14 h-9 rounded-full mt-[515px] ml-[75px] text-[11px] hover:scale-[1.05] duration-300 ease-in-out'>PLAY</button>
+              <button onClick={()=>{setArcadeMachineState("MENU")}} className='absolute text-[white] font-bold italic border-[4px] border-[darkgray] bg-[gray] w-14 h-9 rounded-full mt-[515px] ml-[140px] text-[11px] hover:scale-[1.05] duration-300 ease-in-out '>MENU</button>
+            
             </div>
-            
+
+            { arcadeMachinePower == 0 ? <div className='ml-15 mt-20 w-[350px] h-[280px] bg-[black] scale-100 z-0'></div>
+              
+              :arcadeMachineState == "MENU" ? displayMenu()
+              
+              : arcadeMachineState == "SNAKE" ? <Snake></Snake> : <></>
+            }
           </div>
 
-          <button onClick={()=>{arcadeMachinePower == 0? setArcadeMachinePower(1) : setArcadeMachinePower(0); setArcadeMachineState("MENU"); setCurrentPoster(0)}} className='absolute text-[white] font-bold italic border-[4px] border-[darkgray] bg-[red] w-12 h-12 rounded-full mt-[510px] ml-[20px] text-[8px] hover:scale-[1.05] duration-300 ease-in-out'>ON/OFF</button>
-          <button onClick={()=>{setArcadeMachineState("SNAKE")}} className='absolute text-[white] font-bold italic border-[4px] border-[darkgray] bg-[gray] w-14 h-9 rounded-full mt-[515px] ml-[75px] text-[11px] hover:scale-[1.05] duration-300 ease-in-out'>PLAY</button>
-          <button onClick={()=>{setArcadeMachineState("MENU")}} className='absolute text-[white] font-bold italic border-[4px] border-[darkgray] bg-[gray] w-14 h-9 rounded-full mt-[515px] ml-[140px] text-[11px] hover:scale-[1.05] duration-300 ease-in-out '>MENU</button>
-          </div>
-
-          { arcadeMachinePower == 0 ? <div className='ml-15 mt-20 w-[350px] h-[280px] bg-[black]'></div>
-            
-            :arcadeMachineState == "MENU" ? displayMenu()
-            
-            : arcadeMachineState == "SNAKE" ? <Snake></Snake> : <></>
-          }
         </div>
       </div>
-
     </div>
   );
 }
