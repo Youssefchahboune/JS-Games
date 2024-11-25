@@ -1,18 +1,19 @@
 # JS-Games
 Small Games like Snake, Space shooter and more made in React.js and coded using JavaScript
 
-#Progress
-Snake - (2024-10-6)
+## Deployed page
+https://js-games-iimrllce4-youssef-chahbounes-projects.vercel.app/
 
-![Screenshot 2024-10-07 063823](https://github.com/user-attachments/assets/0cf0e086-4c43-4abf-8edb-9f9ccd2b7a50)
-
+## Progress
 Snake - (2024-10-7)
 
 https://github.com/user-attachments/assets/4b50c338-48a8-49c8-8f05-cc51872ec771
 
 Snake - (2024-10-8)
 
-![Screenshot 2024-10-08 024022](https://github.com/user-attachments/assets/34ff5582-c7be-401f-b734-3aa39bab5112)
-
 https://github.com/user-attachments/assets/eec14aee-7336-4497-9cd1-f4807be20b52
+
+Snake - (2024-11-25)
+![image](https://github.com/user-attachments/assets/0c9e96a4-d6d3-43f1-bb7e-fc96b5eb25e5)
+![image](https://github.com/user-attachments/assets/7e09edc6-df5c-42e2-ba37-9e0d676a7d0a)
 
